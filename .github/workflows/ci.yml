@@ -63,6 +63,7 @@ jobs:
         if: always()
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./build/reports/jacoco/test/jacocoTestReport.xml
 
       - name: Actions Status Discord
         uses: sarisia/actions-status-discord@v1.11.1
