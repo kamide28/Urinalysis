@@ -68,3 +68,4 @@
 ## 目合せの手順
 
 <img width="695" src="https://github.com/kamide28/Six-lesson/assets/127748178/d0909fff-195b-41d4-929d-a94871be088f">
+
