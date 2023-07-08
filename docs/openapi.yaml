@@ -1,0 +1,411 @@
+openapi: "3.0.0"
+info:
+  title: Urinlysis API
+  version: "0.0.1"
+  description: Urinalysis APIのドキュメントです
+
+tags:
+  - name: Urinalysis
+    description: 尿検査結果関連のAPI
+paths:
+  /urine:
+    get:
+      summary: "直近30件のタスクを取得"
+      description: "直近30件のデータを取得します"
+      operationId: "getAllTask"
+      tags:
+        - Urinalysis
+
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+    post:
+      summary: "新規タスク作成"
+      description: "タスクを新規作成する"
+      operationId: "createTask"
+      tags:
+        - Urinalysis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskForm"
+      responses:
+        '201':
+          description: "Created"
+          headers:
+            location:
+              description: "作成されたリソースのURI"
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskCreateResponse"
+  /urine/{id}:
+    get:
+      summary: "データを一件分取得"
+      description: "指定したtaskIDの検査結果をを1件取得する"
+      tags:
+        - Urinalysis
+      operationId: selectResult
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "取得する検査結果のID"
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultResponse"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultNotFoundException"
+    delete:
+      summary: "削除"
+      description: "指定されたtaskIDのデータを全て削除する"
+      operationId: "deleteTask"
+      tags:
+        - Urinalysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "削除するtaskID"
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "ok"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultNotFoundException"
+
+  /urine/reviewee/{id}:
+    patch:
+      summary: "レビューを受ける側の検査結果を更新"
+      description: "指定された検査結果を更新する"
+      operationId: "editRevieweeResult"
+      tags:
+        - Urinalysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "更新する検査結果のtaskID"
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RevieweeResultForm"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultUpdateResponse"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultNotFoundException"
+
+  /urine/reviewer/{id}:
+    patch:
+      summary: "レビューをする側の検査結果を更新"
+      description: "指定された検査結果を更新する"
+      operationId: "editReviewerResult"
+      tags:
+        - Urinalysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "更新する検査結果のtaskID"
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewerResultForm"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultUpdateResponse"
+        '404':
+          description: "Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultNotFoundException"
+
+components:
+  schemas:
+    TaskResponse:
+      type: object
+      properties:
+        taskId:
+          type: integer
+          description: "取得したタスクのID"
+          example: 1
+        taskName:
+          type: string
+          description: "取得したタスクの名前"
+          example: "7月7日鈴木1本目"
+        reviewee_result_id:
+          type: integer
+          description: "レビューを受ける側の結果取得用ID"
+          example: 1
+        reivewer_result_id:
+          type: integer
+          description: "レビューする側の結果取得用ID"
+          example: 1
+    TaskForm:
+      type: object
+      properties:
+        taskName:
+          type: string
+          description: "タスクの名前"
+          minLength: 1
+          maxLength: 100
+          nullable: false
+          example: "7月7日鈴木１本目"
+    TaskCreateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "タスクが登録できたことを伝える"
+          example: "task successfully created"
+    RevieweeResultForm:
+      type: object
+      properties:
+        inspectorName:
+          type: string
+          description: "検査者の名前"
+          nullable: false
+          example: "山田太郎"
+        rbc:
+          type: string
+          description: "RBCの個数"
+          nullable: false
+          example: "1~3/HPF"
+        wbc:
+          type: string
+          description: "WBCの個数"
+          nullable: false
+          example: "1~3/HPF"
+        squamous epithelial:
+          type: string
+          description: "扁平上皮の個数"
+          nullable: false
+          example: "1~3/HPF"
+        urothelial epithelial:
+          type: string
+          description: "尿路上皮細胞の個数"
+          nullable: false
+          example: "1~3/HPF"
+        renal tubular epithelial:
+          type: string
+          description: "尿細管上皮の個数"
+          nullable: false
+          example: "1~3/HPF"
+        other:
+          type: string
+          description: "その他の所見フリー記載欄"
+          nullable: true
+          example: "桿菌(1+)"
+        message:
+          type: string
+          description: "レビューで伝えたいこと"
+          nullable: true
+          example: "細菌とるか迷いました"
+    ReviewerResultForm:
+      type: object
+      properties:
+        inspectorName:
+          type: string
+          description: "検査者の名前"
+          nullable: false
+          example: "山田太郎"
+        rbc:
+          type: string
+          description: "RBCの個数"
+          nullable: false
+          example: "1~3/HPF"
+        wbc:
+          type: string
+          description: "WBCの個数"
+          nullable: false
+          example: "1~3/HPF"
+        squamous epithelial:
+          type: string
+          description: "扁平上皮の個数"
+          nullable: false
+          example: "1~3/HPF"
+        urothelial epithelial:
+          type: string
+          description: "尿路上皮細胞の個数"
+          nullable: false
+          example: "1~3/HPF"
+        renal tubular epithelial:
+          type: string
+          description: "尿細管上皮の個数"
+          nullable: false
+          example: "1~3/HPF"
+        other:
+          type: string
+          description: "その他の所見フリー記載欄"
+          nullable: true
+          example: "桿菌(1+)"
+        message:
+          type: string
+          description: "レビューで伝えたいこと"
+          nullable: true
+          example: "概ねあってきていると思います"
+    ResultUpdateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "結果更新に成功したことを伝える"
+          example: "result successfully updated"
+    ResultNotFoundException:
+      description: "指定されたリソースが存在しない"
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2023-01-01T00:00:00.000000000+09:00"
+          description: "現在の時間"
+        status:
+          type: string
+          example: "404"
+          description: "レスポンスのステータスコード"
+        error:
+          type: string
+          example: "Not Found"
+          description: "エラーメッセージ"
+        message:
+          type: string
+          example: "結果は見つかりませんでした"
+          description: "エラーメッセージ"
+
+    ResultResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          reviewee:
+            type: object
+            properties:
+              inspectorName:
+                type: string
+                description: "検査者の名前"
+                nullable: false
+                example: "山田太郎"
+              rbc:
+                type: string
+                description: "RBCの個数"
+                nullable: false
+                example: "1~3/HPF"
+              wbc:
+                type: string
+                description: "WBCの個数"
+                nullable: false
+                example: "1~3/HPF"
+              squamous_epithelial:
+                type: string
+                description: "扁平上皮の個数"
+                nullable: false
+                example: "1~3/HPF"
+              urothelial_epithelial:
+                type: string
+                description: "尿路上皮細胞の個数"
+                nullable: false
+                example: "1~3/HPF"
+              renal_tubular_epithelial:
+                type: string
+                description: "尿細管上皮の個数"
+                nullable: false
+                example: "1~3/HPF"
+              other:
+                type: string
+                description: "その他の所見フリー記載欄"
+                nullable: true
+                example: "桿菌(1+)"
+              message:
+                type: string
+                description: "レビューで伝えたいこと"
+                nullable: true
+                example: "細菌とるか迷いました"
+          reviewer:
+            type: object
+            properties:
+              inspectorName:
+                type: string
+                description: "検査者の名前"
+                nullable: false
+                example: "山田太郎"
+              rbc:
+                type: string
+                description: "RBCの個数"
+                nullable: false
+                example: "1~3/HPF"
+              wbc:
+                type: string
+                description: "WBCの個数"
+                nullable: false
+                example: "1~3/HPF"
+              squamous_epithelial:
+                type: string
+                description: "扁平上皮の個数"
+                nullable: false
+                example: "1~3/HPF"
+              urothelial_epithelial:
+                type: string
+                description: "尿路上皮細胞の個数"
+                nullable: false
+                example: "1~3/HPF"
+              renal_tubular_epithelial:
+                type: string
+                description: "尿細管上皮の個数"
+                nullable: false
+                example: "1~3/HPF"
+              other:
+                type: string
+                description: "その他の所見フリー記載欄"
+                nullable: true
+                example: "桿菌(1+)"
+              message:
+                type: string
+                description: "レビューで伝えたいこと"
+                nullable: true
+                example: "概ねあってきていると思います"
