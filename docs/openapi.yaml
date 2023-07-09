@@ -98,7 +98,7 @@ paths:
                 $ref: "#/components/schemas/ResultNotFoundException"
 
   /urinalysis/{id}/reviewee:
-    post:
+    patch:
       summary: "レビューを受ける側の検査結果を更新"
       description: "指定された検査結果を更新する"
       operationId: "editRevieweeResult"
@@ -132,7 +132,7 @@ paths:
                 $ref: "#/components/schemas/ResultNotFoundException"
 
   /urinalysis/{id}/reviewer:
-    post:
+    patch:
       summary: "レビューをする側の検査結果を更新"
       description: "指定された検査結果を更新する"
       operationId: "editReviewerResult"
