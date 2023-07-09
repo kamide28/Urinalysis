@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  title: Urinlysis API
+  title: Urinalysis API
   version: "0.0.1"
   description: Urinalysis APIのドキュメントです
 
@@ -8,7 +8,7 @@ tags:
   - name: Urinalysis
     description: 尿検査結果関連のAPI
 paths:
-  /urine:
+  /urinalysis:
     get:
       summary: "直近30件のタスクを取得"
       description: "直近30件のデータを取得します"
@@ -47,7 +47,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TaskCreateResponse"
-  /urine/{id}:
+  /urinalysis/{id}:
     get:
       summary: "データを一件分取得"
       description: "指定したtaskIDの検査結果をを1件取得する"
@@ -97,8 +97,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResultNotFoundException"
 
-  /urine/reviewee/{id}:
-    patch:
+  /urinalysis/{id}/reviewee:
+    post:
       summary: "レビューを受ける側の検査結果を更新"
       description: "指定された検査結果を更新する"
       operationId: "editRevieweeResult"
@@ -123,7 +123,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResultUpdateResponse"
+                $ref: "#/components/schemas/ResultCreateResponse"
         '404':
           description: "Not Found"
           content:
@@ -131,8 +131,8 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResultNotFoundException"
 
-  /urine/reviewer/{id}:
-    patch:
+  /urinalysis/{id}/reviewer:
+    post:
       summary: "レビューをする側の検査結果を更新"
       description: "指定された検査結果を更新する"
       operationId: "editReviewerResult"
@@ -157,7 +157,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResultUpdateResponse"
+                $ref: "#/components/schemas/ResultCreateResponse"
         '404':
           description: "Not Found"
           content:
@@ -289,13 +289,13 @@ components:
           description: "レビューで伝えたいこと"
           nullable: true
           example: "概ねあってきていると思います"
-    ResultUpdateResponse:
+    ResultCreateResponse:
       type: object
       properties:
         message:
           type: string
-          description: "結果更新に成功したことを伝える"
-          example: "result successfully updated"
+          description: "検査結果登録に成功したことを伝える"
+          example: "result successfully created"
     ResultNotFoundException:
       description: "指定されたリソースが存在しない"
       type: object
