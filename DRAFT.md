@@ -72,8 +72,8 @@ DBはMysql、dockerも使っていく
 | GET     | /urine               | 尿沈渣レビュー依頼を全件（もしくは直近２０件表示する） |
 | GET     | /urine/{id}          | IDの結果の全てを表示                 |
 | POST    | /urine/{id}          | 新規にレビュー依頼を立てる               |
-| POST    | /urine/reviewee/{id} | 指定IDにレビューを受ける人の結果を登録        |
-| POST    | /urine/reviewer/{id} | 指定IDにレビューする人の結果を登録　         |
+| PATCH   | /urine/reviewee/{id} | 指定IDにレビューを受ける人の結果を登録        |
+| PATCH   | /urine/reviewer/{id} | 指定IDにレビューする人の結果を登録　         |
 | DELETE  | /urine/{id}          | 指定IDのデータを削除　                |
 
 ### 困っていること
