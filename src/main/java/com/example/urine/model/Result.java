@@ -23,4 +23,40 @@ public class Result {
         this.other = other;
         this.message = message;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getInspentorName() {
+        return inspentorName;
+    }
+
+    public String getRbc() {
+        return rbc;
+    }
+
+    public String getWbc() {
+        return wbc;
+    }
+
+    public String getSquamousEpithelial() {
+        return squamousEpithelial;
+    }
+
+    public String getUrothelialEpithelial() {
+        return urothelialEpithelial;
+    }
+
+    public String getRenalTubularEpithelial() {
+        return renalTubularEpithelial;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

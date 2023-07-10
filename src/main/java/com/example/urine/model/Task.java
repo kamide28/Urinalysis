@@ -12,4 +12,20 @@ public class Task {
         this.revieweeResultId = revieweeResultId;
         this.reviewerResultId = reviewerResultId;
     }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public Integer getRevieweeResultId() {
+        return revieweeResultId;
+    }
+
+    public Integer getReviewerResultId() {
+        return reviewerResultId;
+    }
 }

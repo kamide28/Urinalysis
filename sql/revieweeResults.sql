@@ -1,5 +1,5 @@
 CREATE TABLE revieweeResults (
-  revieweeResultId int NOT NULL,
+  revieweeResultId Integer NOT NULL,
   inspectorName VARCHAR(10),
   rbc VARCHAR(20),
   wbc VARCHAR(20),
