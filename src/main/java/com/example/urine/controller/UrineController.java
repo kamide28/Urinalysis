@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UrineController {
-  @Autowired
-  private final UrineService urineService;
-  
-  public UrineController(UrineService urineService) {
-    this.urineService = urineService;
-  }
-  
-  @GetMapping("/urine")
-  public List<Task> findRecentTasks() {
-    return urineService.findRecentTasks();
-  }
-  
-  @GetMapping("/urine/{id}")
-  public List<List<Result>> searchResultById(@PathVariable("id") Integer id) {
-    return urineService.searchResultById(id);
-  }
+    @Autowired
+    private final UrineService urineService;
+    
+    public UrineController(UrineService urineService) {
+        this.urineService = urineService;
+    }
+    
+    @GetMapping("/urine")
+    public List<Task> findRecentTasks() {
+        return urineService.findRecentTasks();
+    }
+    
+    @GetMapping("/urine/{id}")
+    public List<List<Result>> searchResultById(@PathVariable("id") Integer id) {
+        return urineService.searchResultById(id);
+    }
 }

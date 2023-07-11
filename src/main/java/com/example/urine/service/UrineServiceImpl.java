@@ -9,26 +9,26 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UrineServiceImpl implements UrineService {
-  
-  private final UrineMapper urineMapper;
-  
-  public UrineServiceImpl(UrineMapper urineMapper) {
-    this.urineMapper = urineMapper;
-  }
-  
-  @Override
-  public List<Task> findRecentTasks() {
-    return urineMapper.findRecentTasks();
-  }
-  
-  @Override
-  public List<List<Result>> searchResultById(Integer id) {
-    Task task = urineMapper.findTaskById(id);
-    if (task == null) {
-      throw new RuntimeException();
+    
+    private final UrineMapper urineMapper;
+    
+    public UrineServiceImpl(UrineMapper urineMapper) {
+        this.urineMapper = urineMapper;
     }
-    List<List<Result>> result = Arrays.asList(urineMapper.searchRevieweeResultById(task.getRevieweeResultId()),
-        urineMapper.searchReviewerResultById(task.getReviewerResultId()));
-    return result;
-  }
+    
+    @Override
+    public List<Task> findRecentTasks() {
+        return urineMapper.findRecentTasks();
+    }
+    
+    @Override
+    public List<List<Result>> searchResultById(Integer id) {
+        Task task = urineMapper.findTaskById(id);
+        if (task == null) {
+            throw new RuntimeException();
+        }
+        List<List<Result>> result = Arrays.asList(urineMapper.searchRevieweeResultById(task.getRevieweeResultId()),
+                urineMapper.searchReviewerResultById(task.getReviewerResultId()));
+        return result;
+    }
 }
