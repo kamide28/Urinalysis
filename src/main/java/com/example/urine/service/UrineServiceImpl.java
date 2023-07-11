@@ -22,10 +22,14 @@ public class UrineServiceImpl implements UrineService {
         return urineMapper.findRecentTasks();
     }
 
+    @Override
     public List<List<Result>> searchResultById(Integer id) {
-        List<List<Result>> result =
-                Arrays.asList(urineMapper.searchRevieweeResultById(id), urineMapper.searchReviewerResultById(id));
+        Task task = urineMapper.findTaskById(id);
+        if (task == null) {
+            throw new RuntimeException();
+        }
+        List<List<Result>> result = Arrays.asList(urineMapper.searchRevieweeResultById(task.getRevieweeResultId()),
+                urineMapper.searchReviewerResultById(task.getReviewerResultId()));
         return result;
     }
-
 }

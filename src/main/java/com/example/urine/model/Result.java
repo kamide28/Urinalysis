@@ -1,8 +1,13 @@
 package com.example.urine.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@Getter
+@EqualsAndHashCode
 public class Result {
     private Integer id;
-    private String inspentorName;
+    private String inspectorName;
     private String rbc;
     private String wbc;
     private String squamousEpithelial;
@@ -14,7 +19,7 @@ public class Result {
     public Result(Integer id, String inspentorName, String rbc, String wbc, String squamousEpithelial,
                   String urothelialEpithelial, String renalTubularEpithelial, String other, String message) {
         this.id = id;
-        this.inspentorName = inspentorName;
+        this.inspectorName = inspentorName;
         this.rbc = rbc;
         this.wbc = wbc;
         this.squamousEpithelial = squamousEpithelial;
@@ -22,41 +27,5 @@ public class Result {
         this.renalTubularEpithelial = renalTubularEpithelial;
         this.other = other;
         this.message = message;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getInspentorName() {
-        return inspentorName;
-    }
-
-    public String getRbc() {
-        return rbc;
-    }
-
-    public String getWbc() {
-        return wbc;
-    }
-
-    public String getSquamousEpithelial() {
-        return squamousEpithelial;
-    }
-
-    public String getUrothelialEpithelial() {
-        return urothelialEpithelial;
-    }
-
-    public String getRenalTubularEpithelial() {
-        return renalTubularEpithelial;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public String getMessage() {
-        return message;
     }
 }

@@ -1,5 +1,11 @@
 package com.example.urine.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+
+@Getter
+@EqualsAndHashCode
 public class Task {
     private Integer taskId;
     private String taskName;
@@ -11,21 +17,5 @@ public class Task {
         this.taskName = taskName;
         this.revieweeResultId = revieweeResultId;
         this.reviewerResultId = reviewerResultId;
-    }
-
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public Integer getRevieweeResultId() {
-        return revieweeResultId;
-    }
-
-    public Integer getReviewerResultId() {
-        return reviewerResultId;
     }
 }
