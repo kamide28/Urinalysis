@@ -8,15 +8,15 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UrineMapper {
-    @Select("SELECT * FROM tasks ORDER BY taskId DESC LIMIT 30")
+    @Select("SELECT * FROM tasks ORDER BY task_id DESC LIMIT 30")
     public List<Task> findRecentTasks();
     
-    @Select("SELECT * FROM tasks WHERE taskId= #{id}")
+    @Select("SELECT * FROM tasks WHERE task_id= #{id}")
     public Task findTaskById(Integer id);
     
-    @Select("SELECT * FROM revieweeResults WHERE revieweeResultId= #{id}")
+    @Select("SELECT * FROM reviewee_results WHERE reviewee_result_id= #{id}")
     public List<Result> searchRevieweeResultById(Integer id);
     
-    @Select("SELECT * FROM reviewerResults WHERE reviewerResultId = #{id}")
+    @Select("SELECT * FROM reviewer_results WHERE reviewer_result_id = #{id}")
     public List<Result> searchReviewerResultById(Integer id);
 }
