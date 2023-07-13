@@ -1,10 +1,9 @@
 package com.example.urine.model;
 
-import lombok.EqualsAndHashCode;
+import java.util.Objects;
 import lombok.Getter;
 
 @Getter
-@EqualsAndHashCode
 public class Result {
     private Integer id;
     private String inspectorName;
@@ -27,5 +26,29 @@ public class Result {
         this.renalTubularEpithelial = renalTubularEpithelial;
         this.other = other;
         this.message = message;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Result result = (Result) o;
+        return Objects.equals(id, result.id) && Objects.equals(inspectorName, result.inspectorName) &&
+                Objects.equals(rbc, result.rbc) && Objects.equals(wbc, result.wbc) &&
+                Objects.equals(squamousEpithelial, result.squamousEpithelial) &&
+                Objects.equals(urothelialEpithelial, result.urothelialEpithelial) &&
+                Objects.equals(renalTubularEpithelial, result.renalTubularEpithelial) &&
+                Objects.equals(other, result.other) && Objects.equals(message, result.message);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, inspectorName, rbc, wbc, squamousEpithelial, urothelialEpithelial,
+                renalTubularEpithelial,
+                other, message);
     }
 }
